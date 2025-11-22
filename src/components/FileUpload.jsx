@@ -8,7 +8,20 @@ export function FileUpload({ onDataLoaded }) {
       header: true,
       skipEmptyLines: true,
       complete: (results) => {
-        onDataLoaded(results.data);
+        const data = results.data;
+        if (data.length > 0) {
+          const keys = Object.keys(data[0]);
+          const pathCol = keys.find(k => k.toLowerCase().includes('path'));
+
+          if (pathCol) {
+            data.forEach(row => {
+              if (row[pathCol] && typeof row[pathCol] === 'string') {
+                row[pathCol] = row[pathCol].replace(/\.html$/, '');
+              }
+            });
+          }
+        }
+        onDataLoaded({ data, fileName: file.name });
       },
       error: (error) => {
         console.error('Error parsing CSV:', error);
@@ -37,7 +50,7 @@ export function FileUpload({ onDataLoaded }) {
   };
 
   return (
-    <div 
+    <div
       className="upload-zone"
       onDrop={onDrop}
       onDragOver={onDragOver}
