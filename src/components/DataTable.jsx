@@ -94,7 +94,7 @@ export function DataTable({ data, onSessionSelect }) {
                                                 border: 'none',
                                                 color: getSessionColor(row[header]),
                                                 cursor: 'pointer',
-                                                textDecoration: 'none',
+                                                textDecoration: 'underline dotted',
                                                 padding: 0,
                                                 font: 'inherit',
                                                 fontWeight: 500,
@@ -102,11 +102,9 @@ export function DataTable({ data, onSessionSelect }) {
                                                 fontFamily: 'monospace'
                                             }}
                                             onMouseEnter={(e) => {
-                                                e.currentTarget.style.textDecoration = 'underline';
                                                 e.currentTarget.style.opacity = '1';
                                             }}
                                             onMouseLeave={(e) => {
-                                                e.currentTarget.style.textDecoration = 'none';
                                                 e.currentTarget.style.opacity = '0.9';
                                             }}
                                         >
@@ -122,7 +120,7 @@ export function DataTable({ data, onSessionSelect }) {
                                             href={`/?tab=referrer&search=${encodeURIComponent(row[header])}`}
                                             target="_blank"
                                             rel="noopener noreferrer"
-                                            style={{ color: 'inherit', textDecoration: 'underline', textDecorationColor: 'var(--text-secondary)' }}
+                                            style={{ color: 'inherit', textDecoration: 'underline dotted' }}
                                             onClick={(e) => e.stopPropagation()}
                                         >
                                             {row[header]}

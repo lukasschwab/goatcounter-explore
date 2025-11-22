@@ -5,6 +5,13 @@ web analytics tool [GoatCounter](https://www.goatcounter.com/). In that spirit,
 this web app does not upload your GoatCounter data anywhere: all analysis
 happens locally, in your browser.
 
+This adds several features I feel are missing in the GoatCounter web UI:
+
++ View and filter a table of individual events
++ A unified graph of traffic to all paths
++ Reorganize traffic data by referrers
++ Dive into specific sessiosn
+
 You can use the hosted application at
 [goatcounter-explore.fly.dev](https://goatcounter-explore.fly.dev/).
 
