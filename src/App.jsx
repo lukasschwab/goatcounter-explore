@@ -112,6 +112,7 @@ function App() {
                 hiddenPaths={hiddenPaths}
                 onHiddenPathsChange={setHiddenPaths}
                 fileName={fileName}
+                onReset={() => { setData(null); setFileName(null); setTimeRange(null); setHiddenPaths(new Set()); }}
               />
             </div>
           </div>
@@ -121,19 +122,6 @@ function App() {
             <div className="card">
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
                 <h2 style={{ fontSize: '1.125rem', fontWeight: 500 }}>Traffic Overview</h2>
-                <button
-                  onClick={() => { setData(null); setFileName(null); setTimeRange(null); setHiddenPaths(new Set()); }}
-                  style={{
-                    background: 'transparent',
-                    border: '1px solid var(--border)',
-                    color: 'var(--text-secondary)',
-                    padding: '0.5rem 1rem',
-                    borderRadius: '0.375rem',
-                    fontSize: '0.875rem'
-                  }}
-                >
-                  Upload New File
-                </button>
               </div>
 
               <div style={{ marginBottom: '1rem' }}>

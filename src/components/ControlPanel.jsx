@@ -1,7 +1,8 @@
 import React from 'react';
 import { COLORS } from '../utils/dataProcessing';
+import { Upload } from 'lucide-react';
 
-export function ControlPanel({ paths, hiddenPaths, onHiddenPathsChange, fileName }) {
+export function ControlPanel({ paths, hiddenPaths, onHiddenPathsChange, fileName, onReset }) {
     const handlePathToggle = (path) => {
         onHiddenPathsChange(prev => {
             const next = new Set(prev);
@@ -19,11 +20,33 @@ export function ControlPanel({ paths, hiddenPaths, onHiddenPathsChange, fileName
 
     return (
         <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', height: '100%' }}>
-            {fileName && (
-                <div style={{ fontSize: '0.875rem', color: 'var(--text-secondary)', wordBreak: 'break-all' }}>
-                    File: <span style={{ color: 'var(--text-primary)' }}>{fileName}</span>
-                </div>
-            )}
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+                <button
+                    onClick={onReset}
+                    style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        gap: '0.5rem',
+                        background: 'transparent',
+                        border: '1px solid var(--border)',
+                        color: 'var(--text-primary)',
+                        padding: '0.5rem',
+                        borderRadius: '0.375rem',
+                        fontSize: '0.875rem',
+                        cursor: 'pointer',
+                        width: '100%'
+                    }}
+                >
+                    <Upload size={16} />
+                    Upload New File
+                </button>
+                {fileName && (
+                    <div style={{ fontSize: '0.875rem', color: 'var(--text-secondary)', wordBreak: 'break-all', textAlign: 'center' }}>
+                        <span style={{ color: 'var(--text-primary)' }}>{fileName}</span>
+                    </div>
+                )}
+            </div>
             <div style={{ display: 'flex', gap: '0.5rem' }}>
                 <button
                     onClick={handleShowAll}
