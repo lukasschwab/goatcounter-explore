@@ -22,6 +22,16 @@ You can use the hosted application at
 > It is my general policy not to publicize slop, but I want to provide this
 > source as evidence that this app does not steal your GoatCounter data.
 
+## Usage
+
+To use this tool, you'll need a CSV export of your GoatCounter data.
+
+1. Visit your GoatCounter dashboard settings: `https://[your-code].goatcounter.com/settings/export`
+2. In the "Export to CSV" section, click "Start export".
+3. Wait for the email from GoatCounter containing your download link.
+4. Download the CSV file (it may be gzipped as `.csv.gz`, which is fine).
+5. Upload the file to GoatCounter Explore.
+
 ## Instructions
 
 Run the application locally:
