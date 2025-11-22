@@ -35,6 +35,7 @@ export function DataTable({ data, onSessionSelect }) {
 
     const sessionCol = headers.find(h => h.toLowerCase().includes('session'));
     const dateCol = headers.find(h => h.toLowerCase().includes('date') || h.toLowerCase().includes('created') || h.toLowerCase().includes('time'));
+    const referrerCol = headers.find(h => h.toLowerCase().includes('referrer'));
 
     return (
         <div style={{ overflowX: 'auto' }}>
@@ -76,8 +77,8 @@ export function DataTable({ data, onSessionSelect }) {
                                     style={{
                                         padding: '0.75rem',
                                         color: header === dateCol ? 'var(--text-secondary)' : 'var(--text-primary)',
-                                        whiteSpace: 'nowrap',
-                                        maxWidth: header === 'Page' ? 'none' : '300px',
+                                        whiteSpace: header === 'Page' ? 'normal' : 'nowrap',
+                                        maxWidth: header === 'Page' ? '400px' : '300px',
                                         overflow: 'hidden',
                                         textOverflow: 'ellipsis',
                                         verticalAlign: 'top',
@@ -116,6 +117,16 @@ export function DataTable({ data, onSessionSelect }) {
                                             <div style={{ fontWeight: 500 }}>{row[titleKey] || '(No Title)'}</div>
                                             <div style={{ fontSize: '0.75rem', color: 'var(--text-secondary)', fontFamily: 'monospace' }}>{row[pathKey]}</div>
                                         </div>
+                                    ) : header === referrerCol ? (
+                                        <a
+                                            href={`/?tab=referrer&search=${encodeURIComponent(row[header])}`}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            style={{ color: 'inherit', textDecoration: 'underline', textDecorationColor: 'var(--text-secondary)' }}
+                                            onClick={(e) => e.stopPropagation()}
+                                        >
+                                            {row[header]}
+                                        </a>
                                     ) : (
                                         row[header]
                                     )}

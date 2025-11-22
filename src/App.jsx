@@ -17,6 +17,8 @@ function App() {
   const [activeTab, setActiveTab] = useState('path'); // 'path' or 'referrer'
   const [selectedSession, setSelectedSession] = useState(null);
 
+  const [searchTerm, setSearchTerm] = useState(null);
+
   // Load from localStorage on mount
   React.useEffect(() => {
     try {
@@ -30,6 +32,18 @@ function App() {
       }
     } catch (e) {
       console.error('Failed to load from localStorage:', e);
+    }
+
+    // Parse URL params
+    const params = new URLSearchParams(window.location.search);
+    const tabParam = params.get('tab');
+    const searchParam = params.get('search');
+
+    if (tabParam && (tabParam === 'path' || tabParam === 'referrer')) {
+      setActiveTab(tabParam);
+    }
+    if (searchParam) {
+      setSearchTerm(searchParam);
     }
   }, []);
 
@@ -55,6 +69,9 @@ function App() {
     setHiddenPaths(new Set());
     setTimeRange(null);
     setSelectedSession(null);
+    setSearchTerm(null);
+    // Clear URL params
+    window.history.pushState({}, '', '/');
   };
 
   const handleReset = () => {
@@ -63,16 +80,38 @@ function App() {
     setTimeRange(null);
     setHiddenPaths(new Set());
     setSelectedSession(null);
+    setSearchTerm(null);
     localStorage.removeItem('gc_explore_data');
     localStorage.removeItem('gc_explore_filename');
+    window.history.pushState({}, '', '/');
   };
 
-  // Reset hidden paths when tab changes
-  React.useEffect(() => {
+  const handleTabChange = (tab) => {
+    setActiveTab(tab);
     setHiddenPaths(new Set());
-  }, [activeTab]);
+    setSearchTerm(null);
+    // Clear URL params when switching tabs
+    const url = new URL(window.location);
+    url.search = '';
+    window.history.pushState({}, '', url);
+  };
 
   const { chartData, paths } = useMemo(() => processChartData(data, activeTab), [data, activeTab]);
+
+  // Apply search term filter when it changes or paths load
+  React.useEffect(() => {
+    if (searchTerm && paths.length > 0) {
+      // Only apply if the search term exists in the current paths
+      // This prevents applying a referrer search term to the paths tab
+      if (paths.includes(searchTerm)) {
+        const newHidden = new Set(paths.filter(p => p !== searchTerm));
+        setHiddenPaths(newHidden);
+      }
+    } else if (!searchTerm && paths.length > 0) {
+      // If searchTerm is cleared, ensure all paths are visible
+      setHiddenPaths(new Set());
+    }
+  }, [searchTerm, paths]);
 
   const counts = useMemo(() => {
     if (!chartData) return {};
@@ -230,7 +269,7 @@ function App() {
 
                 <div style={{ display: 'flex', gap: '0.5rem', background: 'var(--bg-secondary)', padding: '0.25rem', borderRadius: '0.5rem' }}>
                   <button
-                    onClick={() => setActiveTab('path')}
+                    onClick={() => handleTabChange('path')}
                     style={{
                       background: activeTab === 'path' ? 'var(--bg-primary)' : 'transparent',
                       color: activeTab === 'path' ? 'var(--text-primary)' : 'var(--text-secondary)',
@@ -246,7 +285,7 @@ function App() {
                     Traffic
                   </button>
                   <button
-                    onClick={() => setActiveTab('referrer')}
+                    onClick={() => handleTabChange('referrer')}
                     style={{
                       background: activeTab === 'referrer' ? 'var(--bg-primary)' : 'transparent',
                       color: activeTab === 'referrer' ? 'var(--text-primary)' : 'var(--text-secondary)',
@@ -297,6 +336,28 @@ function App() {
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
                 <h2 style={{ fontSize: '1.125rem', fontWeight: 500 }}>
                   {activeTab === 'path' ? 'Traffic Overview' : 'Referrer Overview'}
+                  {searchTerm && (
+                    <span style={{ marginLeft: '0.5rem', fontSize: '0.875rem', color: 'var(--text-secondary)', fontWeight: 400 }}>
+                      (Filtered by: {searchTerm})
+                      <button
+                        onClick={() => {
+                          setSearchTerm(null);
+                          setHiddenPaths(new Set());
+                          window.history.pushState({}, '', '/');
+                        }}
+                        style={{
+                          marginLeft: '0.5rem',
+                          background: 'none',
+                          border: 'none',
+                          color: 'var(--accent)',
+                          cursor: 'pointer',
+                          textDecoration: 'underline'
+                        }}
+                      >
+                        Clear
+                      </button>
+                    </span>
+                  )}
                 </h2>
               </div>
 
