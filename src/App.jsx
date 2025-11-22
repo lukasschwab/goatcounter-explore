@@ -141,6 +141,33 @@ function App() {
               <BarChart3 color="white" size={24} />
             </div>
             <h1>GoatCounter Explore</h1>
+            <a
+              href="https://github.com/lukasschwab/goatcounter-explore"
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{
+                background: 'transparent',
+                color: 'var(--text-secondary)',
+                textDecoration: 'none',
+                padding: '0.5rem 1rem',
+                borderRadius: '0.375rem',
+                cursor: 'pointer',
+                fontWeight: 500,
+                transition: 'all 0.2s',
+                marginLeft: 'auto',
+                fontSize: '0.875rem'
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.color = 'var(--text-primary)';
+                e.currentTarget.style.background = 'var(--bg-secondary)';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.color = 'var(--text-secondary)';
+                e.currentTarget.style.background = 'transparent';
+              }}
+            >
+              About
+            </a>
           </header>
           <div className="card">
             <FileUpload onDataLoaded={handleDataLoaded} />
@@ -173,39 +200,68 @@ function App() {
                 <h1>GoatCounter Explore</h1>
               </div>
 
-              <div style={{ display: 'flex', gap: '0.5rem', background: 'var(--bg-secondary)', padding: '0.25rem', borderRadius: '0.5rem' }}>
-                <button
-                  onClick={() => setActiveTab('path')}
+              <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+                <a
+                  href="https://github.com/lukasschwab/goatcounter-explore"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   style={{
-                    background: activeTab === 'path' ? 'var(--bg-primary)' : 'transparent',
-                    color: activeTab === 'path' ? 'var(--text-primary)' : 'var(--text-secondary)',
-                    border: 'none',
+                    background: 'transparent',
+                    color: 'var(--text-secondary)',
+                    textDecoration: 'none',
                     padding: '0.5rem 1rem',
                     borderRadius: '0.375rem',
                     cursor: 'pointer',
                     fontWeight: 500,
-                    boxShadow: activeTab === 'path' ? '0 1px 3px rgba(0,0,0,0.1)' : 'none',
-                    transition: 'all 0.2s'
+                    transition: 'all 0.2s',
+                    fontSize: '0.875rem'
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.color = 'var(--text-primary)';
+                    e.currentTarget.style.background = 'var(--bg-secondary)';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.color = 'var(--text-secondary)';
+                    e.currentTarget.style.background = 'transparent';
                   }}
                 >
-                  Traffic
-                </button>
-                <button
-                  onClick={() => setActiveTab('referrer')}
-                  style={{
-                    background: activeTab === 'referrer' ? 'var(--bg-primary)' : 'transparent',
-                    color: activeTab === 'referrer' ? 'var(--text-primary)' : 'var(--text-secondary)',
-                    border: 'none',
-                    padding: '0.5rem 1rem',
-                    borderRadius: '0.375rem',
-                    cursor: 'pointer',
-                    fontWeight: 500,
-                    boxShadow: activeTab === 'referrer' ? '0 1px 3px rgba(0,0,0,0.1)' : 'none',
-                    transition: 'all 0.2s'
-                  }}
-                >
-                  Referrers
-                </button>
+                  About
+                </a>
+
+                <div style={{ display: 'flex', gap: '0.5rem', background: 'var(--bg-secondary)', padding: '0.25rem', borderRadius: '0.5rem' }}>
+                  <button
+                    onClick={() => setActiveTab('path')}
+                    style={{
+                      background: activeTab === 'path' ? 'var(--bg-primary)' : 'transparent',
+                      color: activeTab === 'path' ? 'var(--text-primary)' : 'var(--text-secondary)',
+                      border: 'none',
+                      padding: '0.5rem 1rem',
+                      borderRadius: '0.375rem',
+                      cursor: 'pointer',
+                      fontWeight: 500,
+                      boxShadow: activeTab === 'path' ? '0 1px 3px rgba(0,0,0,0.1)' : 'none',
+                      transition: 'all 0.2s'
+                    }}
+                  >
+                    Traffic
+                  </button>
+                  <button
+                    onClick={() => setActiveTab('referrer')}
+                    style={{
+                      background: activeTab === 'referrer' ? 'var(--bg-primary)' : 'transparent',
+                      color: activeTab === 'referrer' ? 'var(--text-primary)' : 'var(--text-secondary)',
+                      border: 'none',
+                      padding: '0.5rem 1rem',
+                      borderRadius: '0.375rem',
+                      cursor: 'pointer',
+                      fontWeight: 500,
+                      boxShadow: activeTab === 'referrer' ? '0 1px 3px rgba(0,0,0,0.1)' : 'none',
+                      transition: 'all 0.2s'
+                    }}
+                  >
+                    Referrers
+                  </button>
+                </div>
               </div>
             </header>
           </div>
