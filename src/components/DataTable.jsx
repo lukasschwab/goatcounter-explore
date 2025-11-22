@@ -9,8 +9,13 @@ export function DataTable({ data, onSessionSelect }) {
         if (lower.includes('session')) return -20;
         if (lower.includes('date') || lower.includes('created') || lower.includes('time')) return -10;
         if (h === 'Page') return -5;
+        if (lower.includes('location')) return -4;
         if (lower.includes('browser')) return 10;
         if (lower.includes('system')) return 20;
+        if (lower.includes('screen') && lower.includes('size')) return 25;
+        if (lower.includes('firstvisit') || lower.includes('first visit')) return 30;
+        if (lower.includes('referrer') && lower.includes('scheme')) return 40;
+        if (lower.includes('bot')) return 50;
         return 0;
     };
 
