@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { BarChart3 } from 'lucide-react';
 import { FileUpload } from './components/FileUpload';
 import { DataTable } from './components/DataTable';
+import { TimeseriesGraph } from './components/TimeseriesGraph';
 import './App.css';
 
 function App() {
@@ -28,7 +29,7 @@ function App() {
       ) : (
         <div className="card">
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
-            <h2 style={{ fontSize: '1.125rem', fontWeight: 500 }}>Raw Data Preview</h2>
+            <h2 style={{ fontSize: '1.125rem', fontWeight: 500 }}>Traffic Overview</h2>
             <button
               onClick={() => setData(null)}
               style={{
@@ -43,6 +44,12 @@ function App() {
               Upload New File
             </button>
           </div>
+
+          <div style={{ marginBottom: '2rem' }}>
+            <TimeseriesGraph data={data} />
+          </div>
+
+          <h2 style={{ fontSize: '1.125rem', fontWeight: 500, marginBottom: '1rem' }}>Raw Data Preview</h2>
           <DataTable data={data} />
         </div>
       )}
