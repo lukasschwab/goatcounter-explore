@@ -1,20 +1,19 @@
 # goatcounter-explore
 
-> [!CAUTION]
-> ![The Sandia Warning.](./sandia.png)
-> 
+This is a web explorer for data exported from the excellent, privacy-conscious
+web analytics tool [GoatCounter](https://www.goatcounter.com/). In that spirit,
+this web app does not upload your GoatCounter data anywhere: all analysis
+happens locally, in your browser.
+
+You can use the hosted application at
+[goatcounter-explore.fly.dev](https://goatcounter-explore.fly.dev/).
+
+>[!NOTE]
 > This code was authored with minimal supervision/review by Gemini 3 Pro in
 > Antigravity. It may be very bad.
 >
 > It is my general policy not to publicize slop, but I want to provide this
-> source as evidence that this application does not store your GoatCounter data
-> except perhaps in localstorage.
-
-This is a web explorer for data exported from the excellent, privacy-conscious
-web analytics tool [GoatCounter](https://www.goatcounter.com/).
-
-You can use the hosted application at
-[goatcounter-explore.fly.dev](https://goatcounter-explore.fly.dev/).
+> source as evidence that this app does not steal your GoatCounter data.
 
 ## Instructions
 
