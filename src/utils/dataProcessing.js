@@ -5,7 +5,7 @@ export const COLORS = [
     '#f472b6', '#fb923c', '#a3e635', '#22d3ee', '#e879f9'
 ];
 
-export function processChartData(data) {
+export function processChartData(data, groupBy = 'path') {
     if (!data || data.length === 0) return { chartData: [], paths: [] };
 
     // 1. Identify columns
@@ -16,12 +16,14 @@ export function processChartData(data) {
         k.toLowerCase().includes('date') ||
         k.toLowerCase().includes('time')
     );
-    const pathCol = keys.find(k =>
-        k.toLowerCase().includes('path')
+
+    // Find column based on groupBy preference
+    const groupCol = keys.find(k =>
+        k.toLowerCase().includes(groupBy.toLowerCase())
     );
 
-    if (!dateCol || !pathCol) {
-        console.warn('Could not identify Date or Path columns. Keys found:', keys);
+    if (!dateCol || !groupCol) {
+        console.warn(`Could not identify Date or ${groupBy} columns. Keys found:`, keys);
         return { chartData: [], paths: [] };
     }
 
@@ -34,13 +36,13 @@ export function processChartData(data) {
             if (!dateStr) return;
 
             const date = startOfDay(new Date(dateStr.replace(' ', 'T'))).toISOString();
-            const path = row[pathCol];
+            const group = row[groupCol] || '(none)'; // Handle missing values
 
             if (!visitsByDay[date]) {
                 visitsByDay[date] = { date };
             }
 
-            visitsByDay[date][path] = (visitsByDay[date][path] || 0) + 1;
+            visitsByDay[date][group] = (visitsByDay[date][group] || 0) + 1;
         } catch (e) {
             console.error('Error processing row:', row, e);
         }
@@ -49,19 +51,29 @@ export function processChartData(data) {
     // 3. Transform to array and sort
     const chartData = Object.values(visitsByDay).sort((a, b) => a.date.localeCompare(b.date));
 
-    // 4. Extract paths
-    const pathCounts = {};
+    // 4. Extract groups
+    const groupCounts = {};
     chartData.forEach(day => {
         Object.keys(day).forEach(key => {
             if (key !== 'date') {
-                pathCounts[key] = (pathCounts[key] || 0) + day[key];
+                groupCounts[key] = (groupCounts[key] || 0) + day[key];
             }
         });
     });
 
-    const paths = Object.entries(pathCounts)
+    const paths = Object.entries(groupCounts)
         .sort(([, a], [, b]) => b - a)
-        .map(([path]) => path);
+        .map(([group]) => group);
 
     return { chartData, paths };
+}
+
+export function getSessionColor(str) {
+    if (!str) return 'var(--text-primary)';
+    let hash = 0;
+    for (let i = 0; i < str.length; i++) {
+        hash = str.charCodeAt(i) + ((hash << 5) - hash);
+    }
+    const hue = Math.abs(hash % 360);
+    return `hsl(${hue}, 85%, 75%)`;
 }

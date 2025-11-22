@@ -2,7 +2,7 @@ import React from 'react';
 import { COLORS } from '../utils/dataProcessing';
 import { Upload } from 'lucide-react';
 
-export function ControlPanel({ paths, hiddenPaths, onHiddenPathsChange, fileName, onReset }) {
+export function ControlPanel({ paths, hiddenPaths, onHiddenPathsChange, fileName, onReset, counts }) {
     const handlePathToggle = (path) => {
         onHiddenPathsChange(prev => {
             const next = new Set(prev);
@@ -109,12 +109,17 @@ export function ControlPanel({ paths, hiddenPaths, onHiddenPathsChange, fileName
                         onMouseLeave={(e) => e.currentTarget.style.background = 'transparent'}
                     >
                         <div style={{
-                            width: '8px',
-                            height: '8px',
-                            borderRadius: '50%',
-                            background: hiddenPaths.has(path) ? 'var(--text-secondary)' : COLORS[index % COLORS.length],
+                            minWidth: '30px',
+                            textAlign: 'right',
+                            color: hiddenPaths.has(path) ? 'var(--text-secondary)' : COLORS[index % COLORS.length],
+                            fontSize: '0.75rem',
+                            fontWeight: 'bold',
+                            fontVariantNumeric: 'tabular-nums',
+                            paddingRight: '0.5rem',
                             flexShrink: 0
-                        }} />
+                        }}>
+                            {counts ? (counts[path] || 0) : 0}
+                        </div>
                         <span style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }} title={path}>
                             {path}
                         </span>
