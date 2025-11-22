@@ -46,7 +46,7 @@ export function TimeseriesGraph({ chartData, paths, hiddenPaths, onTimeRangeChan
                             dataKey={path}
                             stroke={COLORS[index % COLORS.length]}
                             strokeWidth={2}
-                            dot={false}
+                            dot={{ r: 2 }}
                             activeDot={{ r: 6 }}
                             connectNulls
                             hide={hiddenPaths.has(path)}
