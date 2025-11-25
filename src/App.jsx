@@ -215,14 +215,11 @@ function App() {
       ) : (
         <div style={{
           display: 'grid',
-          gridTemplateColumns: selectedSession
-            ? '1fr minmax(auto, 1200px) 1fr 320px'
-            : '1fr minmax(auto, 1200px) 1fr',
+          gridTemplateColumns: '1fr minmax(auto, 1200px) 1fr',
           gridTemplateRows: 'auto 1fr',
           gap: '2rem',
           padding: '2rem',
-          alignItems: 'start',
-          transition: 'all 0.3s ease'
+          alignItems: 'start'
         }}>
           {/* Header - Row 1, Col 2 */}
           <div style={{ gridColumn: '2', gridRow: '1' }}>
@@ -402,8 +399,9 @@ function App() {
             </div>
           )}
         </div>
-      )}
-    </div>
+      )
+      }
+    </div >
   );
 }
 
