@@ -314,7 +314,7 @@ function App() {
             display: 'flex',
             flexDirection: 'column'
           }}>
-            <div className="card" style={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
+            <div className="card" style={{ height: '100%', maxHeight: '100%', overflow: 'hidden', display: 'flex', flexDirection: 'column' }}>
               <h2 style={{ fontSize: '1.125rem', fontWeight: 500, marginBottom: '1rem' }}>Controls</h2>
               <ControlPanel
                 paths={paths}

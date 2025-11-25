@@ -19,7 +19,7 @@ export function ControlPanel({ paths, hiddenPaths, onHiddenPathsChange, fileName
     const handleHideAll = () => onHiddenPathsChange(new Set(paths));
 
     return (
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', height: '100%' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', flex: 1, minHeight: 0 }}>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
                 <button
                     onClick={onReset}
